@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+
+const Scene3D = lazy(() => import("./Scene3D"));
 
 const Hero = () => {
   const [text, setText] = useState("");
@@ -41,14 +43,25 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated gradient orbs */}
+      {/* 3D Holographic Sphere Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }}></div>
+        
+        {/* 3D Scene */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-60 pointer-events-auto">
+          <Suspense fallback={
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full border-4 border-primary/30 border-t-primary animate-spin"></div>
+            </div>
+          }>
+            <Scene3D />
+          </Suspense>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
         <div className="mb-8">
           <div className="inline-block glass-card px-6 py-2 rounded-full mb-6 glow-cyan">
             <span className="text-sm font-medium gradient-text">Portfolio 2025</span>

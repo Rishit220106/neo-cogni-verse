@@ -2,14 +2,18 @@ import {
   Code2,
   Database,
   Brain,
-  Laptop,
   GitBranch,
   Layout,
   Server,
   Sparkles,
 } from "lucide-react";
+import { Suspense, lazy, useState } from "react";
+
+const SkillOrbit3D = lazy(() => import("./SkillOrbit3D"));
 
 const Skills = () => {
+  const [view, setView] = useState<"3d" | "grid">("3d");
+
   const skillCategories = [
     {
       category: "Languages",
@@ -52,12 +56,64 @@ const Skills = () => {
             Skills & <span className="gradient-text">Technologies</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
             A versatile toolkit for building intelligent systems
           </p>
+
+          {/* View toggle buttons */}
+          <div className="flex justify-center gap-3 mb-8">
+            <button
+              onClick={() => setView("3d")}
+              className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                view === "3d"
+                  ? "bg-primary text-primary-foreground glow-cyan"
+                  : "glass-card border border-primary/20 text-muted-foreground hover:text-primary"
+              }`}
+            >
+              3D Orbit View
+            </button>
+            <button
+              onClick={() => setView("grid")}
+              className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                view === "grid"
+                  ? "bg-primary text-primary-foreground glow-cyan"
+                  : "glass-card border border-primary/20 text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Grid View
+            </button>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 3D Orbit View */}
+        {view === "3d" && (
+          <div className="mb-12">
+            <Suspense
+              fallback={
+                <div className="w-full h-[600px] rounded-2xl glass-card flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 rounded-full border-4 border-primary/30 border-t-primary animate-spin mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">Loading 3D visualization...</p>
+                  </div>
+                </div>
+              }
+            >
+              <SkillOrbit3D />
+            </Suspense>
+            <div className="text-center mt-6 space-y-2">
+              <p className="text-sm text-muted-foreground">
+                🖱️ <span className="text-primary font-medium">Drag to rotate</span> • 🔍 <span className="text-secondary font-medium">Scroll to zoom</span> • ✨ <span className="text-cyan font-medium">Hover icons for glow</span>
+              </p>
+              <p className="text-xs text-muted-foreground/70">
+                Interactive 3D skill sphere with orbiting technologies
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Grid View */}
+        {view === "grid" && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => (
             <div
               key={index}
@@ -82,9 +138,10 @@ const Skills = () => {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
 
-        <div className="mt-16 glass-card rounded-2xl p-8 text-center">
+        <div className="mt-12 glass-card rounded-2xl p-8 text-center">
           <p className="text-lg text-muted-foreground">
             <span className="gradient-text font-semibold">Always learning,</span> always growing.
             Currently exploring advanced LLM architectures and 3D web experiences.

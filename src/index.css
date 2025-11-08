@@ -95,6 +95,17 @@ All colors MUST be HSL.
     to { box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); }
   }
 
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2s steps(40) forwards;
+  }
+
   .particles {
     position: fixed;
     top: 0;

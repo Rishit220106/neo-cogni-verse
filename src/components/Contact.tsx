@@ -48,8 +48,8 @@ const Contact = () => {
     try {
       // EmailJS configuration - Replace these with your actual values
       const serviceId = "service_1wmxjy9";
-      const templateId = "YOUR_TEMPLATE_ID";
-      const publicKey = "YOUR_PUBLIC_KEY";
+      const templateId = "template_8gtevh6";
+      const publicKey = "Zcyw_ypRU7__ovj5_";
 
       const templateParams = {
         from_name: data.name,

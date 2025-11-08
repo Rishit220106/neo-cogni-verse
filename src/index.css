@@ -100,6 +100,11 @@ All colors MUST be HSL.
     to { width: 100%; }
   }
 
+  @keyframes gridMove {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(50px) translateX(50px); }
+  }
+
   .typewriter {
     overflow: hidden;
     white-space: nowrap;

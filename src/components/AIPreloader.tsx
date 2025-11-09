@@ -33,12 +33,12 @@ const AIPreloader = ({ onComplete }: AIPreloaderProps) => {
     // Mark as completing after all lines
     const completingTimer = setTimeout(() => {
       setIsCompleting(true);
-    }, 5500);
+    }, 5000);
 
-    // Actually complete after additional 4-5 seconds
+    // Actually complete after additional 3 seconds
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 10000);
+    }, 8000);
 
     return () => {
       timers.forEach(clearTimeout);

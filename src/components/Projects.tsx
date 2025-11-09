@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ExternalLink, Github, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -9,7 +8,7 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Crop Recommendation System 🌾",
+      title: "Crop Recommendation System",
       tagline: "Where AI meets agriculture.",
       theme: "Sustainability × Data Intelligence",
       description:
@@ -19,23 +18,23 @@ const Projects = () => {
       buttonColor: "bg-[#00E676] hover:bg-[#00E676]/90 text-black",
       buttonGlow: "hover:shadow-[0_0_30px_rgba(0,230,118,0.6)]",
       links: {
-        live: "#",
-        github: "#",
+        live: "https://crop-recommender-tsqa.onrender.com/",
+        github: "https://github.com/Rishit220106/crop-recommender",
       },
     },
     {
-      title: "Mask Detection System 😷",
+      title: "Mask Detection System",
       tagline: "Vision that protects.",
       theme: "Computer Vision × Real-time AI",
       description:
-        "Real-time intelligence safeguarding health. Powered by deep learning, this CNN-based system achieves 95% accuracy in detecting face masks, combining TensorFlow's neural networks with OpenCV's computer vision for instant health monitoring.",
+        "Real-time CNN model achieving 95% accuracy for face mask detection using TensorFlow and OpenCV. Combines AI-driven accuracy with health-focused vision analysis.",
       tech: ["TensorFlow", "OpenCV", "Streamlit"],
       impact: "95% accuracy • Real-time detection • CNN-powered",
       buttonColor: "bg-[#00E5FF] hover:bg-[#00E5FF]/90 text-black",
       buttonGlow: "hover:shadow-[0_0_30px_rgba(0,229,255,0.6)]",
       links: {
-        live: "#",
-        github: "#",
+        // no live demo for second project per spec
+        github: "https://github.com/Rishit220106/mask-detection",
       },
     },
   ];
@@ -50,17 +49,12 @@ const Projects = () => {
       >
         {/* Section Header */}
         <div className="text-center mb-20">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Sparkles className="w-8 h-8 text-primary animate-pulse" />
-            <h2 className="text-5xl md:text-6xl font-bold">
-              Featured <span className="gradient-text">Projects</span>
-            </h2>
-            <Sparkles className="w-8 h-8 text-secondary animate-pulse" />
-          </div>
-          <div className="w-32 h-1 bg-gradient-to-r from-primary via-secondary to-primary mx-auto mb-8 animate-glow"></div>
-          <p className="text-foreground/80 text-xl md:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
-            Exploring intelligence in motion — where ideas evolve into{" "}
-            <span className="gradient-text font-semibold">real-world impact</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Featured Projects
+          </h2>
+          <div className="w-44 h-1 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 mx-auto mb-6 opacity-50"></div>
+          <p className="text-foreground/80 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
+            Exploring intelligence in motion — where ideas evolve into real-world impact.
           </p>
         </div>
 
@@ -200,13 +194,12 @@ const Projects = () => {
                     className="flex items-center gap-2 text-sm font-mono font-semibold px-4 py-2 rounded-lg backdrop-blur-sm"
                     style={{
                       background: index === 0 
-                        ? 'rgba(0, 230, 118, 0.1)' 
-                        : 'rgba(0, 229, 255, 0.1)',
-                      border: `1px solid ${index === 0 ? 'rgba(0, 230, 118, 0.3)' : 'rgba(0, 229, 255, 0.3)'}`,
+                        ? 'rgba(0, 230, 118, 0.07)' 
+                        : 'rgba(0, 229, 255, 0.07)',
+                      border: `1px solid ${index === 0 ? 'rgba(0, 230, 118, 0.15)' : 'rgba(0, 229, 255, 0.15)'}`,
                       color: index === 0 ? '#00E676' : '#00E5FF',
                     }}
                   >
-                    <Sparkles className="w-4 h-4" />
                     {project.impact}
                   </div>
 
@@ -228,16 +221,18 @@ const Projects = () => {
 
                   {/* Action Buttons */}
                   <div className="flex gap-4 pt-4">
-                    <Button
-                      size="lg"
-                      className={`flex-1 font-semibold transition-all duration-300 ${project.buttonColor} ${project.buttonGlow}`}
-                      asChild
-                    >
-                      <a href={project.links.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-5 h-5 mr-2" />
-                        Live Demo
-                      </a>
-                    </Button>
+                    {/* Action Buttons: show Live Demo only when link exists (Crop) */}
+                    {project.links.live && (
+                      <Button
+                        size="lg"
+                        className={`flex-1 font-semibold transition-all duration-300 ${project.buttonColor} ${project.buttonGlow}`}
+                        asChild
+                      >
+                        <a href={project.links.live} target="_blank" rel="noopener noreferrer">
+                          Live Demo
+                        </a>
+                      </Button>
+                    )}
                     <Button
                       size="lg"
                       variant="outline"
@@ -245,7 +240,7 @@ const Projects = () => {
                       asChild
                     >
                       <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-5 h-5" />
+                        GitHub
                       </a>
                     </Button>
                   </div>
@@ -268,31 +263,18 @@ const Projects = () => {
           ))}
 
           {/* Neural Pulse Line Between Projects */}
-          <div className="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-px h-24 z-20">
-            <div 
-              className="absolute inset-0 bg-gradient-to-b from-[#00E676] via-primary to-[#00E5FF]"
-              style={{
-                animation: 'neuralPulse 2s ease-in-out infinite',
-                boxShadow: '0 0 20px rgba(0, 229, 255, 0.8), 0 0 40px rgba(0, 230, 118, 0.6)',
-              }}
-            />
-            <div 
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-primary"
-              style={{
-                animation: 'neuralPulse 2s ease-in-out infinite',
-                boxShadow: '0 0 15px rgba(0, 229, 255, 1)',
-              }}
-            />
-            <div 
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full"
-              style={{
-                background: '#00E676',
-                animation: 'neuralPulse 2s ease-in-out infinite',
-                boxShadow: '0 0 15px rgba(0, 230, 118, 1)',
-              }}
-            />
+          {/* Vertical glowing divider between the two projects */}
+          <div className="hidden md:flex items-center justify-center absolute inset-0 pointer-events-none">
+            <div className="w-px h-48 bg-gradient-to-b from-[#00E676] via-transparent to-[#00E5FF] mx-auto" style={{boxShadow: '0 0 40px rgba(0,230,118,0.12), 0 0 60px rgba(0,229,255,0.12)'}} />
           </div>
         </div>
+        {/* Minimal keyframes for animations used above */}
+        <style>{`
+          @keyframes gridMove { from { background-position: 0 0; } to { background-position: 200px 200px; } }
+          @keyframes scanLine { 0% { transform: translateX(-100%); opacity: 0 } 50% { opacity: 0.6 } 100% { transform: translateX(100%); opacity: 0 } }
+          @keyframes pulse { 0% { opacity: 0.9 } 50% { opacity: 0.6 } 100% { opacity: 0.9 } }
+          @keyframes neuralPulse { 0% { transform: scaleY(0.95) } 50% { transform: scaleY(1.05) } 100% { transform: scaleY(0.95) } }
+        `}</style>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 import { Calendar, GraduationCap, Trophy } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const timeline = [
     {
       year: "2023",
@@ -24,7 +26,12 @@ const About = () => {
 
   return (
     <section id="about" className="min-h-screen py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
+      <div 
+        ref={ref}
+        className={`max-w-6xl mx-auto transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
             About <span className="gradient-text">Me</span>

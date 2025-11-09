@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Github, Linkedin, Mail, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 // Form validation schema
 const formSchema = z.object({
@@ -32,6 +33,7 @@ type FormData = z.infer<typeof formSchema>;
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { ref, isVisible } = useScrollAnimation();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -105,7 +107,12 @@ const Contact = () => {
 
   return (
     <section id="contact" className="min-h-screen py-20 px-4 relative flex items-center">
-      <div className="max-w-4xl mx-auto w-full">
+      <div 
+        ref={ref}
+        className={`max-w-4xl mx-auto w-full transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
             Get In <span className="gradient-text">Touch</span>
